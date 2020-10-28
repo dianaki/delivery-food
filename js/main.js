@@ -23,7 +23,15 @@ const buttonOut = document.querySelector(".button-out");
 let login = localStorage.getItem("delivery-club");
 
 function toogleModalAuth() {
-  modalAuth.classList.toggle("is-open")
+  modalAuth.classList.toggle("is-open");
+  loginInput.style.borderColor = "";
+  passwordInput.style.borderColor = "";
+
+  if (modalAuth.classList.contains("is-open")) {
+    disableScroll();
+  } else {
+    enableScroll();
+  }
 }
 
 function autorized() {
@@ -56,25 +64,9 @@ function notAutorized() {
   function logIn(event) {
     event.preventDefault();
 
-    login = loginInput.value;
-    password = passwordInput.value;
-
-    if (!login && !password) {
-      loginInput.style.borderColor = "red";
-      const loginValidate = document.createElement("div");
-      loginValidate.style.color = "red";
-      loginValidate.style.textAlign = "right";
-      loginValidate.textContent = "Введите логин";
-      loginInput.insertAdjacentElement("afterend", loginValidate);
-
-      passwordInput.style.borderColor = "red";
-      const passwordValidate = document.createElement("div");
-      passwordValidate.style.color = "red";
-      passwordValidate.textContent = "Введите пароль";
-      passwordValidate.style.textAlign = "right";
-      passwordInput.insertAdjacentElement("afterend", passwordValidate);
-
-    } else {
+    if (loginInput.value.trim() && passwordInput.value.trim()) {
+      login = loginInput.value;
+      password = passwordInput.value;
       localStorage.setItem("delivery-club", login);
       toogleModalAuth();
       buttonAuth.removeEventListener("click", toogleModalAuth);
@@ -82,12 +74,24 @@ function notAutorized() {
       logInForm.removeEventListener("submit", logIn);
       logInForm.reset();
       checkAuth();
+
+    } else {
+      loginInput.style.borderColor = "red";
+      loginInput.value = "";
+      passwordInput.style.borderColor = "red";
+      passwordInput.value = "";
     }
   }
 
   buttonAuth.addEventListener("click", toogleModalAuth);
   closeAuth.addEventListener("click", toogleModalAuth);
   logInForm.addEventListener("submit", logIn);
+
+  modalAuth.addEventListener("click", function (event) {
+    if (event.target.classList.contains("is-open")) {
+      toogleModalAuth();
+    }
+  })
 }
 
 
