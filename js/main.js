@@ -19,6 +19,7 @@ const logo = document.querySelector(".logo");
 const cardsMenu = document.querySelector(".cards-menu");
 
 let login = localStorage.getItem("delivery-club");
+let password;
 
 function toggleModal() {
   modal.classList.toggle("is-open");
@@ -157,17 +158,22 @@ function createCardGood() {
 
 function openGoods(event) {
   const target = event.target;
-  const restaurant = target.closest(".card-restaurant");
 
-  if (restaurant) {
-    cardsMenu.textContent = "";
-    containerPromo.classList.add("hide");
-    restaurants.classList.add("hide");
-    menu.classList.remove("hide");
+  if (login && password) {
+    const restaurant = target.closest(".card-restaurant");
 
-    createCardGood();
-    createCardGood();
-    createCardGood();
+    if (restaurant) {
+      cardsMenu.textContent = "";
+      containerPromo.classList.add("hide");
+      restaurants.classList.add("hide");
+      menu.classList.remove("hide");
+
+      createCardGood();
+      createCardGood();
+      createCardGood();
+    }
+  } else {
+    toogleModalAuth();
   }
 }
 
@@ -186,3 +192,15 @@ logo.addEventListener("click", function () {
 checkAuth();
 
 createCardRestauraunt();
+createCardRestauraunt();
+createCardRestauraunt();
+
+new Swiper(".swiper-container", {
+  slidesPerView: 1,
+  loop: true,
+  autoplay: true,
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+});

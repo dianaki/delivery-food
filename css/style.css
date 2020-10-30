@@ -161,18 +161,19 @@ button {
     font-size: 18px;
 }
 
-.promo-slider {
+.container-promo {
+    margin-bottom: 36px;
+}
 
+.promo-slider {
     width: 600px;
     height: 300px;
-
 }
 
 .promo {
     box-shadow: 0 7px 12px rgba(158, 158, 163, 0.1);
     border-radius: 10px;
     padding: 68px 70px;
-    margin-bottom: 56px;
 }
 
 .pizza {
@@ -608,10 +609,7 @@ button {
         max-width: 750px;
     }
 
-
-
     .pizza {
-        padding: 50px;
         background-size: 500px;
         background-position: center right -200px;
     }
